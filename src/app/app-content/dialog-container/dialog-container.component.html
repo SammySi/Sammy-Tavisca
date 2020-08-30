@@ -1,0 +1,10 @@
+<h2 mat-dialog-title>{{title}}</h2>
+
+<mat-dialog-content>
+    <mat-form-field>
+        <mat-label>Select Task/Task List Name</mat-label>
+        <mat-select (selectionChange)="setReturnValue($event)">
+            <mat-option *ngFor="let item of optionsList" [value]="item">{{item}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+</mat-dialog-content>

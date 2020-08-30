@@ -1,0 +1,40 @@
+.header {
+    background-image: linear-gradient(to right, #0000ff, #d0d4ff);
+
+    h1 {
+        padding-left: 30px;
+        color: #ffffff;
+        line-height: 100px;
+    }
+
+    .butPlace{
+        margin-top: 30px;
+        margin-right: 30px;
+        float: right;
+    }
+
+    .darkButton{
+        background-color: #313131;
+        color: #ffffff;
+    }
+
+    .lightButton{
+        background-color: #ffffff;
+        color: #313131
+    }
+}
+
+@media only screen and (min-width: 300px) and (max-width: 500px)  {
+    .header {
+        h1 {
+            font-size: 20px;
+        }
+
+        .butPlace {
+            width: 90px;
+            margin-right: 10px;
+            font-size: 10px;
+            margin-top: 37px;
+        }
+    }
+}

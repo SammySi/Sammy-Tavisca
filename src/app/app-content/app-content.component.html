@@ -1,0 +1,53 @@
+<div class="bodyContainer">
+    <div class="displayScreen">
+        <div class="displayFlexContainer">
+            <span class="displayFlexRow">
+                <span *ngFor="let item of keys">{{item}} :</span>
+            </span>
+            <span class="displayFlexRow" *ngIf="screenDetails && !enableSumbitForEdit">
+                <span>{{screenDetails.name}}</span>
+                <span>{{screenDetails.description}}</span>
+                <span>{{formatDate(screenDetails.date)}}</span>
+                <span>{{selectedTaskType}}</span>
+            </span>
+            <span class="displayFlexRow" *ngIf="enableSubmit || enableSumbitForEdit">
+                <mat-form-field>
+                    <input matInput type="text" [(ngModel)]="newName" autofocus>
+                </mat-form-field>
+                <mat-form-field>
+                    <input matInput type="text" [(ngModel)]="newDesc">
+                </mat-form-field>
+                <mat-form-field>
+                    <input matInput [matDatepicker]="picker3" [(ngModel)]="newDate" (focus)="picker3.open()">
+                    <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                    <mat-datepicker #picker3></mat-datepicker>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-select class="lastInput" [(ngModel)]="newStatus" [disabled]="screenDetails" #statusDrop (focus)="statusDrop.open()">
+                        <mat-option *ngFor="let item of taskLists" [value]="item.name">{{item.name}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </span>
+        </div>
+        <div class="buttons">
+            <a (click)="addTaskDetails()" *ngIf="!enableSubmit && (screenDetails == null)">Add Task</a>
+            <a *ngIf="enableSubmit && (screenDetails == null) && checkFields()" (click)="submitForValidation(true)">Submit Task</a>
+            <a *ngIf="screenDetails && enableSumbitForEdit && checkFields()" (click)="submitForValidation(false)">Submit Task</a>
+            <a (click)="editTask()" *ngIf="screenDetails && !enableSumbitForEdit">Edit Task</a>
+            <a (click)="resetScreen()">Reset Screen</a>
+            <a (click)="enableAddList()" *ngIf="!enableListAdd">Add Task List</a>
+            <a (click)="checkAndAddList()" *ngIf="enableListAdd" [ngClass]="(newListName) ? '' : 'disableLink'">Submit List</a>
+            <mat-form-field *ngIf="enableListAdd">
+                <input matInput type="text" [(ngModel)]="newListName" autofocus>
+            </mat-form-field>
+            <span class="errorMessage">{{errorMessage}}</span>
+        </div>
+    </div>
+    <div class="flexContainer">
+        <app-task-element *ngFor="let taskList of taskLists; let i = index" [taskDetail]="taskList"
+            (detailsToDisplay)="populateScreen($event, i)"
+            (delete)="deleteItem($event, i)"
+            (draggedElement)="checkElement($event)"
+            (draggedList)="checkList($event)"></app-task-element>
+    </div>
+</div>

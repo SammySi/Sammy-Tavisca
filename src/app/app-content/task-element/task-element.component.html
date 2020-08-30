@@ -1,0 +1,17 @@
+<div class="flexRow">
+    <div class="flexColumn" (drop)="insertElement($event)" (dragover)="allowDrag($event)" 
+    draggable="true" (dragstart)="startListDrag($event)">
+        <h2>
+            {{title}}
+            <a class="listDelete" (click)="delete(true, null)">Delete List</a>
+        </h2>
+        <div *ngFor="let item of taskLists; let i = index" (click)="displayOnScreen(i)" class="itemRow" 
+        draggable="true" (dragstart)="startDrag($event, i, title)">
+            <span>
+                Name: {{item.name}}
+                <a class="taskDelete" (click)="delete(false, i)">Delete Task</a>
+            </span>
+            <span>Date: {{formatDate(item.date)}}</span>   
+        </div>
+    </div>
+</div>

@@ -1,0 +1,145 @@
+.bodyContainer{
+    margin: 10px;
+    border: 1px solid black;
+    box-shadow: 0.1em 0.1em 0.4em 0.1em;
+    min-height: 500px;
+
+    .displayScreen {
+    
+        .displayFlexContainer {
+            min-height: 140px;
+            width: 450px;
+            border: 1px solid black;
+            box-shadow: 0.1em 0.1em 0.4em 0.1em;
+            padding: 10px;
+            margin: 17px auto 0;
+            display: flex;
+            flex-direction: row;
+    
+            .displayFlexRow:first-child {
+                width: 110px;
+                text-align: right;
+                margin-left: 0;
+                span{
+                    font-weight: bold;
+                }
+            }
+    
+            .displayFlexRow:last-child {
+    
+                input{ 
+                    padding: 1px;
+                }
+    
+                .lastInput {
+                    margin-top: 3px;
+                }
+    
+                .mat-form-field-appearance-outline .mat-form-field-outline {
+                    color: black;
+                  }
+            }
+    
+            .displayFlexRow {
+                width: 300px;
+                display: flex;
+                flex-direction: column;
+                margin-left: 10px;
+                span {
+                    padding: 3px;
+                }
+                .mat-form-field {
+                    height: 30px;
+                    ::ng-deep .mat-form-field-infix {
+                        padding: 0;
+                        padding-top: 7px;
+                        border-top: 0;
+                    }
+                }
+            }
+        }
+    
+        .buttons {
+            margin: 10px auto 0;
+            height: 30px;
+            a:first-child{
+                margin-left: 25px;
+            }
+    
+            a{
+                color: #0082fc;
+                cursor: pointer;
+                margin: 0 10px;
+            }
+    
+            .errorMessage{
+                color: red;
+                float: right;
+                margin-right: 40px;
+            }
+            .mat-form-field {
+                height: 30px;
+                ::ng-deep .mat-form-field-infix {
+                    padding: 0;
+                    padding-top: 7px;
+                    border-top: 0;
+                }
+            }
+    
+            .disableLink {
+                cursor: none;
+                pointer-events: none;
+            }
+        }
+    }
+
+    .flexContainer {
+        display: flex;
+        padding: 20px;
+        min-height: 300px;
+        width: 100%;
+        flex-wrap: wrap;
+    }
+}
+
+@media only screen and (min-width: 500px) and (max-width: 700px)  {
+    .bodyContainer {
+
+        .displayScreen {
+
+            .buttons{
+                margin: 10px auto 0;
+            }
+        }
+
+        .flexContainer {
+            flex-direction: column;
+        }
+    }
+}
+
+@media only screen and (min-width: 300px) and (max-width: 500px)  {
+    .bodyContainer {
+
+        font-size: 10px;
+
+        .displayScreen {
+
+            .displayFlexContainer{
+                width: 250px;
+                min-height: 110px;
+            }
+
+            .buttons{
+                margin-left: 20px;
+                margin-top: 10px;
+                display: grid;
+                height: 60px;
+            }
+        }
+
+        .flexContainer {
+            flex-direction: column;
+        }
+    }
+}

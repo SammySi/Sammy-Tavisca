@@ -1,0 +1,12 @@
+<h2 mat-dialog-title>{{title}}</h2>
+
+<mat-dialog-content>
+    <mat-form-field>
+        <mat-label>Select Task/Task List Name</mat-label>
+        <mat-select>
+            <mat-optgroup *ngFor="let taskList of optionsList" [label]="taskList.name">
+                <mat-option *ngFor="let item of taskList.tasks" [value]="item.name" (onSelectionChange)="setReturnValue($event)">{{item.name}}</mat-option>
+            </mat-optgroup>
+        </mat-select>
+    </mat-form-field>
+</mat-dialog-content>
