@@ -30,6 +30,7 @@ export class AppContentComponent implements OnInit {
   oldName: string;
   enableListAdd: boolean;
   minDate: string;
+  localStorageKey: string = 'taskLists';
 
   newName: string;
   newDesc: string;
@@ -40,22 +41,8 @@ export class AppContentComponent implements OnInit {
   constructor(private dialog: MatDialog) { }
 
   ngOnInit(): void {
-    this.taskLists = [
-      new taskListElement(
-        "To-Do List",
-        [
-          new taskModel('Laundry', '5 clothes to wash', '2020-08-29T09:30'),
-          new taskModel('Medical Check-up', 'Visit doctor', '2020-08-28T16:30')
-        ]
-      ),
-      new taskListElement(
-        "Pending",
-        [
-          new taskModel('Groceries', 'Take list along for shopping', '2020-08-26T13:00'),
-          new taskModel('Temple Visit', 'Peace', '2020-08-26T14:00')
-        ]
-      ),
-    ];
+    this.taskLists = <taskListElement[]> JSON.parse(window.localStorage.getItem(this.localStorageKey));
+    if(this.taskLists == null) this.taskLists = [];
   }
 
   @HostListener('window:keydown', ['$event']) keyDown(event: KeyboardEvent) {
@@ -146,6 +133,7 @@ export class AppContentComponent implements OnInit {
       this.taskLists[ind].tasks[taskInd].description = this.newDesc;
       this.taskLists[ind].tasks[taskInd].date = this.newDate;
     }
+    window.localStorage.setItem(this.localStorageKey, JSON.stringify(this.taskLists));
     this.sortTaskData();
     this.resetScreen();
   }
@@ -187,6 +175,7 @@ export class AppContentComponent implements OnInit {
       } else {
         this.taskLists.splice(listIndex, 1);
       }
+      window.localStorage.setItem(this.localStorageKey, JSON.stringify(this.taskLists));
     }
     this.sortTaskData();
   }
@@ -204,6 +193,7 @@ export class AppContentComponent implements OnInit {
     } else {
       let newTaskList: taskListElement = new taskListElement(this.newListName, []);
       this.taskLists.push(newTaskList);
+      window.localStorage.setItem(this.localStorageKey, JSON.stringify(this.taskLists));
     }
     this.newListName = '';
     this.enableListAdd = false;
@@ -220,6 +210,7 @@ export class AppContentComponent implements OnInit {
       this.taskLists[sourceInd].tasks.splice(elementData.elemIndex, 1);
       this.taskLists[destinationInd].tasks.push(originalTask);
       this.sortTaskData();
+      window.localStorage.setItem(this.localStorageKey, JSON.stringify(this.taskLists));
     }
   }
 
@@ -237,6 +228,7 @@ export class AppContentComponent implements OnInit {
         this.taskLists.splice(sourceInd, 1);
         this.taskLists.splice(destInd, 0, elemToAdd);
       } 
+      window.localStorage.setItem(this.localStorageKey, JSON.stringify(this.taskLists));
     }
   }
 
@@ -270,6 +262,7 @@ export class AppContentComponent implements OnInit {
         this.errorMessage = 'List with provided name does not exist';
       } else {
         this.taskLists.splice(ind, 1);
+        window.localStorage.setItem(this.localStorageKey, JSON.stringify(this.taskLists));
       }
     });
   }
@@ -307,6 +300,7 @@ export class AppContentComponent implements OnInit {
             this.errorMessage = 'Task with provided name does not exist';
           } else {
             this.taskLists[ind].tasks.splice(listItemInd, 1);
+            window.localStorage.setItem(this.localStorageKey, JSON.stringify(this.taskLists));
           }
           this.sortTaskData();
         }) 
