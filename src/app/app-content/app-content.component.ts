@@ -31,6 +31,7 @@ export class AppContentComponent implements OnInit {
   enableListAdd: boolean;
   minDate: string;
   localStorageKey: string = 'taskLists';
+  currentKeysPressedString: string = "";
 
   newName: string;
   newDesc: string;
@@ -45,10 +46,11 @@ export class AppContentComponent implements OnInit {
     if(this.taskLists == null) this.taskLists = [];
   }
 
-  @HostListener('window:keydown', ['$event']) keyDown(event: KeyboardEvent) {
+  @HostListener('window:keydown', ['$event']) keyDown(event) {
     this.currentKeysPressed = this.currentKeysPressed.concat(event.key);
+    this.currentKeysPressedString = this.currentKeysPressed.toLocaleString()
 
-    switch (this.currentKeysPressed.toLocaleString()) {
+    switch (this.currentKeysPressedString) {
       case 'Alt,t': {
         event.preventDefault();
         if (!this.enableSubmit && (this.screenDetails == null)) this.addTaskDetails();

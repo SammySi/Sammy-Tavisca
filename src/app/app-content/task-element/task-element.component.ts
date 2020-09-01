@@ -31,6 +31,7 @@ export class TaskElementComponent implements OnInit {
   }
 
   startDrag(element, elemIndex, title) {
+    element.stopPropagation();
     let dataToBeSent = {
       'source': title,
       'elemIndex': elemIndex
@@ -39,6 +40,7 @@ export class TaskElementComponent implements OnInit {
   }
 
   startListDrag(event) {
+    event.stopPropagation();
     let dataToBeSent = {
       'source': this.title
     }
@@ -49,7 +51,7 @@ export class TaskElementComponent implements OnInit {
     event.preventDefault();
     let data = JSON.parse(event.dataTransfer.getData("taskData"));
     let dataToSend;
-    if (data.elemIndex) {
+    if (data.elemIndex != null) {
       dataToSend = {
         'source': data.source,
         'elemIndex': data.elemIndex,

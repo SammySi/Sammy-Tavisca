@@ -1,16 +1,21 @@
 import { TestBed } from '@angular/core/testing';
 
 import { ThemeService } from './theme.service';
+import { componentFactoryName } from '@angular/compiler';
 
 describe('ThemeService', () => {
   let service: ThemeService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(ThemeService);
+    service = new ThemeService();
   });
 
-  it('should be created', () => {
-    expect(service).toBeTruthy();
-  });
+  it('should call toggleDark method', () => {
+    service.toggleDark();
+  })
+
+  it('should call toggleLight method', () => {
+    service.toggleLight();
+  })
+
 });
